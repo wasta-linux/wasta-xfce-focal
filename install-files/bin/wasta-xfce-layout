@@ -1,0 +1,285 @@
+#!/bin/bash
+
+# ==============================================================================
+# wasta-xfce-layout
+#
+# This script can be run at any time to "toggle" XFCE settings
+#   to provide different layouts
+#
+# plugin numbers:
+#   whiskermenu:
+#       Vertical: 23
+#       Others: 1
+#
+#   2019-01-18 rik: initial script
+#   2019-01-30 rik: cupertino and unity need borderless_maximize
+#   2019-05-30 rik: set Wasta-Redmond10 as default dbx theme, continue to use
+#       Wasta-Unite for Unity
+#   2020-04-28 rik: updating for focal: dockbarx now gtk3 using dconf
+#
+# ==============================================================================
+
+# widescreen: put a space below the clock, or like cinnamon-layout put power net, sound below time
+
+# can't change gtk theme since at system level :-(
+
+# ------------------------------------------------------------------------------
+# Ensure script running as regular user
+# ------------------------------------------------------------------------------
+if [ $(id -u) -eq 0 ];
+then
+    echo "This script should NOT be run with SUDO!  Must be regular user!!"
+    echo "Exiting...."
+    sleep 5s
+    exit 1
+fi
+
+AUTO=""
+MSG=""
+CHOICE=""
+if [ "$1" ];
+then
+    echo
+    echo "Layout choice passed as parameter 1: $1"
+    echo
+    CHOICE="$1"
+    AUTO=YES
+fi
+
+COMP=""
+if [ "$2" ];
+then
+    echo
+    echo "Compositing choice passed as parameter 2: $2"
+    echo
+    COMP="$2"
+fi
+
+# ------------------------------------------------------------------------------
+# Setup
+# ------------------------------------------------------------------------------
+DIR=/usr/share/wasta-xfce
+
+# ------------------------------------------------------------------------------
+# Main Processing
+# ------------------------------------------------------------------------------
+
+# prompt user
+if ! [ "$CHOICE" ];
+then
+    CHOICE=$(zenity --list --title="wasta [Layout]" \
+        --window-icon=wasta-linux \
+        --height=300 --text \
+"This utility <i><b>changes</b></i> the layout of the <i>panel</i> (taskbar) and other
+items of the XFCE Desktop Interface.
+
+<b><i>Choose your preferred layout:</i></b>" --radiolist \
+        --column "" --column "Layout" --column "Description" \
+        TRUE        redmond7          "Windows 7 inspired layout" \
+        FALSE       cupertino         "MacOS/OSX insipired layout" \
+        FALSE       unity             "Ubuntu Unity inspired layout" \
+        FALSE       widescreen        "Left panel widescreen layout" \
+        FALSE       xp                "Windowx XP inspired layout")
+fi
+
+if [ "$CHOICE" == "" ];
+then
+    # EXIT: no layout selected
+    echo
+    echo "*** no layout selected: exiting..."
+    echo
+    exit 0
+fi
+
+# Make initial dockbarx settings changes (compositing later...)
+gsettings set org.dockbarx.dockbarx theme "Wasta-Redmond10"
+gsettings set org.dockbarx.dockbarx show-only-current-desktop "true"
+gsettings set org.dockbarx.dockbarx popup-style-file "wasta.tar.gz"
+
+# Wasta-Unite Resets
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color1 '#2F343F'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color2 '#FFFFFF'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color3 '#FFFFFF'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color5 '#FFFFFF'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color5 '#5294E2'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color5 '#5294E2'
+
+# Wasta-Redmond10 Resets
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color1 '#2F343F'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color2 '#FFFFFF'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color3 '#FFFFFF'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color5 '#FFFFFF'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color5 '#5294E2'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color5 '#5294E2'
+
+DBX_LAUNCHERS=$(gsettings get org.dockbarx.dockbarx launchers)
+WASTA_GTK_FILE="$DIR/resources/gtk-xfce-wasta.css"
+
+if [ "$DBX_LAUNCHERS" == "[]" ] || [ "$DBX_LAUNCHERS" == "" ];
+then
+    echo
+    echo "Setting default dockbarx launchers"
+    echo
+    gsettings set org.dockbarx.dockbarx launchers "['firefox;/usr/share/applications/firefox.desktop', 'nemo;/usr/share/applications/nemo.desktop', 'libreoffice-writer;/usr/share/applications/libreoffice-writer.desktop', 'wasta-backup;/usr/share/applications/wasta-backup.desktop', 'wasta-resources;/usr/share/applications/wasta-resources.desktop']"
+fi
+
+case "$CHOICE" in
+"redmond7")
+    xfconf-query -c xfwm4 -p /general/button_layout -s "O|HMC"
+    xfconf-query -c xfwm4 -p /general/borderless_maximize -s false
+    xfconf-query -c xfwm4 -p /general/titleless_maximize -s false
+    xfce4-panel-profiles load /usr/share/xfce4-panel-profiles/layouts/Wasta-Redmond7.tar.bz2
+
+    # set gtk theme pulseaudio icon scale to 1.0
+    #sed -i -e 's@#\(pulseaudio-button { -gtk-icon-transform: scale(\).*\(); }\)@\11.0\2@' $WASTA_GTK_FILE
+
+    # set gtk theme power manager icon scale to 0.7
+    #sed -i -e 's@#\(xfce4-power-manager-plugin { -gtk-icon-transform: scale(\).*\(); }\)@\10.7\2@' $WASTA_GTK_FILE
+;;
+"unity")
+    # Make initial dockbarx settings changes (compositing later...)
+    gsettings set org.dockbarx.dockbarx theme "Wasta-Unite"
+    #xfconf-query -c xsettings -p /Gtk/ShellShowsMenubar -n -t bool -s true
+    #xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true
+    xfconf-query -c xfwm4 -p /general/button_layout -s "CMH|O"
+    xfconf-query -c xfwm4 -p /general/borderless_maximize -s true
+    xfconf-query -c xfwm4 -p /general/titleless_maximize -s true
+    xfce4-panel-profiles load /usr/share/xfce4-panel-profiles/layouts/Wasta-Unity.tar.bz2
+
+    # set gtk theme pulseaudio icon scale to 1.0
+    #sed -i -e 's@#\(pulseaudio-button { -gtk-icon-transform: scale(\).*\(); }\)@\11.0\2@' $WASTA_GTK_FILE
+
+    # set gtk theme power manager icon scale to 1.0
+    #sed -i -e 's@#\(xfce4-power-manager-plugin { -gtk-icon-transform: scale(\).*\(); }\)@\11.0\2@' $WASTA_GTK_FILE
+;;
+"cupertino")
+    xfconf-query -c xfwm4 -p /general/button_layout -s "CMH|O"
+    xfconf-query -c xfwm4 -p /general/borderless_maximize -s true
+    xfconf-query -c xfwm4 -p /general/titleless_maximize -s true
+    xfce4-panel-profiles load /usr/share/xfce4-panel-profiles/layouts/Wasta-Cupertino.tar.bz2
+
+    # set gtk theme pulseaudio icon scale to 1.0
+    #sed -i -e 's@#\(pulseaudio-button { -gtk-icon-transform: scale(\).*\(); }\)@\11.0\2@' $WASTA_GTK_FILE
+
+    # set gtk theme power manager icon scale to 1.0
+    #sed -i -e 's@#\(xfce4-power-manager-plugin { -gtk-icon-transform: scale(\).*\(); }\)@\11.0\2@' $WASTA_GTK_FILE
+;;
+"widescreen")
+    # set dockbarx theme
+    gsettings set org.dockbarx.dockbarx theme "Wasta-Unite"
+
+    xfconf-query -c xfwm4 -p /general/button_layout -s "O|HMC"
+    xfconf-query -c xfwm4 -p /general/borderless_maximize -s false
+    xfconf-query -c xfwm4 -p /general/titleless_maximize -s false
+    xfce4-panel-profiles load /usr/share/xfce4-panel-profiles/layouts/Wasta-Widescreen.tar.bz2
+
+    # set gtk theme pulseaudio icon scale to 0.5
+    #sed -i -e 's@#\(pulseaudio-button { -gtk-icon-transform: scale(\).*\(); }\)@\10.5\2@' $WASTA_GTK_FILE
+
+    # set gtk theme power manager icon scale to 0.5
+    #sed -i -e 's@#\(xfce4-power-manager-plugin { -gtk-icon-transform: scale(\).*\(); }\)@\10.5\2@' $WASTA_GTK_FILE
+;;
+"xp")
+    xfconf-query -c xfwm4 -p /general/button_layout -s "O|HMC"
+    xfconf-query -c xfwm4 -p /general/borderless_maximize -s false
+    xfconf-query -c xfwm4 -p /general/titleless_maximize -s false
+    xfce4-panel-profiles load /usr/share/xfce4-panel-profiles/layouts/Wasta-XP.tar.bz2
+
+    # set gtk theme pulseaudio icon scale to 1.0
+    #sed -i -e 's@#\(pulseaudio-button { -gtk-icon-transform: scale(\).*\(); }\)@\11.0\2@' $WASTA_GTK_FILE
+
+    # set gtk theme power manager icon scale to 0.7
+    #sed -i -e 's@#\(xfce4-power-manager-plugin { -gtk-icon-transform: scale(\).*\(); }\)@\10.7\2@' $WASTA_GTK_FILE
+;;
+*)
+    #do nothing
+;;
+esac
+RETURN=$?
+if [ "$RETURN" != "0" ];
+then
+    MSG+="Layout $CHOICE <b>NOT APPLIED</b>\n\n"
+else
+    MSG+="Layout $CHOICE <b>APPLIED</b>\n\n"
+fi
+
+# put in non-compositing prompt
+# prompt user
+if ! [ "$COMP" ];
+then
+    COMP=$(zenity --list --title="wasta [Layout]" \
+        --window-icon=wasta-linux \
+        --height=300 --text \
+"<i><b>Compositing</b></i> improves usability by enabling shadows
+around windows. However, compositing also increases
+the system resources used by the machine.
+
+<b><i>Do you want to ENABLE compositing?</i></b>" --radiolist \
+        --column "" --column "Enable" --column "Description" \
+        TRUE        yes               "ENABLE compositing" \
+        FALSE       no                "DISABLE compositing")
+fi
+
+if [ "$COMP" == "" ];
+then
+    # EXIT: no layout selected
+    echo
+    echo "*** no compositing selected: exiting..."
+    echo
+    exit 0
+fi
+
+DBX_PLUGIN=""
+DBX_PLUGIN=$(xfconf-query -c xfce4-panel -p /plugins -lv | grep dockbarx \
+    | sed -e 's@\/plugins\/plugin-\([0-9]*\).*@\1@')
+
+if [ "$DBX_PLUGIN" ];
+then
+    echo
+    echo "Dockbarx plugin number: $DBX_PLUGIN"
+    echo
+    # mode 0 (always needed 20.04+)
+    xfconf-query -c xfce4-panel -p /plugins/plugin-$DBX_PLUGIN/mode -s 0
+fi
+
+case "$COMP" in
+"yes")
+    MSG+="Enabling compositing...\n\n"
+    xfconf-query -c xfwm4 -p /general/use_compositing -s true
+;;
+"no")
+    MSG+="Disabling compositing...\n\n"
+    xfconf-query -c xfwm4 -p /general/use_compositing -s false
+;;
+*)
+    #do nothing
+;;
+esac
+
+RETURN=$?
+if [ "$RETURN" != "0" ];
+then
+    MSG+="Compositing option <b>NOT APPLIED</b>\n\n"
+else
+    MSG+="Compositing option <b>APPLIED</b>\n\n"
+fi
+
+# ------------------------------------------------------------------------------
+# Finished
+# ------------------------------------------------------------------------------
+MSG+="<b>Finished</b>"
+
+# prompt user
+if [ "$AUTO" == "" ];
+then
+    zenity --info --title "wasta [Layout]: Finished" --no-wrap --height=150 --width=300 \
+        --window-icon=/usr/share/icons/hicolor/64x64/apps/wasta-linux.png \
+        --text="$MSG"
+fi
+
+echo
+echo "Output:"
+printf "$MSG"
+echo
+
+exit 0

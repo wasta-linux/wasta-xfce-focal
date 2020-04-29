@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=wasta [Layout]: xfce
+Comment=Change XFCE Desktop Layout
+Exec=wasta-xfce-layout
+Terminal=false
+Type=Application
+Icon=xfce4-panel
+OnlyShowIn=XFCE;
+Categories=Application;System;Settings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;

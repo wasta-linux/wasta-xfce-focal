@@ -1,0 +1,22 @@
+Source: wasta-xfce-focal
+Section: utils
+Priority: optional
+Maintainer: Rik Shaw <rikshaw76@gmail.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.5
+Homepage: https://github.com/wasta-linux/wasta-xfce-focal
+
+Package: wasta-xfce-focal
+Architecture: all
+Depends: arc-theme, gconf2, gnome-system-tools, ksuperkey, menulibre, mugshot, nemo, ntp, pavucontrol, sox, thunar-volman, wasta-core-focal, wasta-multidesktop-focal, wasta-papirus, xfce4-appfinder, xfce4-appmenu-plugin, xfce4-dockbarx-plugin, xfce4-notifyd, xfce4-panel, xfce4-power-manager, xfce4-power-manager-plugins, xfce4-pulseaudio-plugin, xfce4-session, xfce4-statusnotifier-plugin, xfce4-whiskermenu-plugin, xfpanel-switch, xfwm4, ${misc:Depends}
+Recommends: bookletimposer, nemo-compare, nemo-image-converter, xfce4-terminal
+Conflicts:
+Description: Wasta-Linux XFCE Customization for 20.04 Focal Fossa
+ XFCE desktop setup for Wasta-Linux. Default layout in etc/xdg/xdg-xfce gives
+ a basic Windows XP-like experience. The wasta-xfce-layout utility can be used
+ to choose other desktop layouts such as Wasta-Redmond7, Wasta-Cupertino, and
+ Wasta-Unity. These additional layouts rely on the xfce4-dockbarx-plugin for
+ the xfce4-panel.
+ .
+ Nemo is set as the default file manager and will draw desktop icons due
+ to wasta-multidesktop settings.
