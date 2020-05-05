@@ -42,13 +42,27 @@
     font-weight: bold;
 }
 
+#xfce4-notification-plugin * { -gtk-icon-transform: scale(0.5); }
+#xfce4-notification-plugin { color:white; }
+
 /* pulseaudio-button: needs resized for panels >=36px to 0.5 */
 #pulseaudio-button * { -gtk-icon-transform: scale(0.5); }
+#pulseaudio-button { color:white; }
 
 /* xfce4-power-manager-plugin: needs resized for vertical panels to 0.5,
     or 0.7 for horizontal panels =30 px or 0.5 =36px */
 #xfce4-power-manager-plugin * { -gtk-icon-transform: scale(0.5); }
+#xfce4-power-manager-plugin { color:white; }
 
-#whiskermenu-button * {
-    padding: 0px 5px;
-}
+#clock-button * { padding: 10px; font-weight:bold; }
+#clock-button { color:white; }
+
+#whiskermenu-button * { padding: 0px 5px; }
+
+#sn-button {}
+
+#showdesktop-button {}
+
+#indicator-button {}
+
+/* https://docs.xfce.org/xfce/xfce4-panel/theming */

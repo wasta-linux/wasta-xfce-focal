@@ -54,16 +54,11 @@
 /plugins/plugin-10 'separator'
 /plugins/plugin-10/expand false
 /plugins/plugin-10/style uint32 0
-/plugins/plugin-11 'systray'
-/plugins/plugin-11/show-frame false
-/plugins/plugin-11/size-max uint32 22
-/plugins/plugin-12 'statusnotifier'
-/plugins/plugin-12/icon-size uint32 22
-/plugins/plugin-12/menu-is-primary true
-/plugins/plugin-12/mode-whitelist false
-/plugins/plugin-12/single-row false
+/plugins/plugin-11 'notification-plugin'
+/plugins/plugin-12 'systray'
+/plugins/plugin-12/show-frame false
+/plugins/plugin-12/size-max uint32 22
 /plugins/plugin-12/square-icons false
-/plugins/plugin-12/symbolic-icons true
 /plugins/plugin-13 'pulseaudio'
 /plugins/plugin-13/enable-keyboard-shortcuts true
 /plugins/plugin-13/enable-mpris true

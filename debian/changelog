@@ -1,3 +1,10 @@
+wasta-xfce-focal (0.1.1) focal; urgency=medium
+
+  * wasta-xfce-layout: remove power label for widescreen layout
+  * layouts: update to use notifcation-plugin and systray
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Tue, 05 May 2020 14:35:27 -0500
+
 wasta-xfce-focal (0.1.0) focal; urgency=medium
 
   * initial focal release

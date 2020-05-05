@@ -57,16 +57,11 @@
 /plugins/plugin-9 'separator'
 /plugins/plugin-9/expand false
 /plugins/plugin-9/style uint32 0
-/plugins/plugin-10 'systray'
-/plugins/plugin-10/show-frame false
-/plugins/plugin-10/size-max uint32 22
-/plugins/plugin-11 'statusnotifier'
-/plugins/plugin-11/icon-size uint32 22
-/plugins/plugin-11/menu-is-primary true
-/plugins/plugin-11/mode-whitelist false
-/plugins/plugin-11/single-row false
+/plugins/plugin-10 'notification-plugin'
+/plugins/plugin-11 'systray'
+/plugins/plugin-11/show-frame false
+/plugins/plugin-11/size-max uint32 22
 /plugins/plugin-11/square-icons false
-/plugins/plugin-11/symbolic-icons true
 /plugins/plugin-12 'pulseaudio'
 /plugins/plugin-12/enable-keyboard-shortcuts true
 /plugins/plugin-12/enable-mpris true
@@ -100,7 +95,7 @@
 /plugins/plugin-25/expand false
 /plugins/plugin-25/style uint32 0
 /plugins/plugin-26 'dockbarx'
-/plugins/plugin-26/alpha 100
+/plugins/plugin-26/alpha 95
 /plugins/plugin-26/block-autohide false
 /plugins/plugin-26/color '#2b2e37'
 /plugins/plugin-26/expand false

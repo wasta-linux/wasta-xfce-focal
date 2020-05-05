@@ -16,6 +16,7 @@
 #   2019-05-30 rik: set Wasta-Redmond10 as default dbx theme, continue to use
 #       Wasta-Unite for Unity
 #   2020-04-28 rik: updating for focal: dockbarx now gtk3 using dconf
+#   2020-05-05 rik: remove power label for widescreen layout
 #
 # ==============================================================================
 
@@ -96,6 +97,9 @@ gsettings set org.dockbarx.dockbarx theme "Wasta-Redmond10"
 gsettings set org.dockbarx.dockbarx show-only-current-desktop "true"
 gsettings set org.dockbarx.dockbarx popup-style-file "wasta.tar.gz"
 
+# Reset Power Manager Label to % (widescreen later disables)
+xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/show-panel-label -s 1
+
 # Wasta-Unite Resets
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color1 '#2F343F'
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color2 '#FFFFFF'
@@ -172,6 +176,9 @@ case "$CHOICE" in
     xfconf-query -c xfwm4 -p /general/borderless_maximize -s false
     xfconf-query -c xfwm4 -p /general/titleless_maximize -s false
     xfce4-panel-profiles load /usr/share/xfce4-panel-profiles/layouts/Wasta-Widescreen.tar.bz2
+
+    # Remove Power Manager Label
+    xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/show-panel-label -s 0
 
     # set gtk theme pulseaudio icon scale to 0.5
     #sed -i -e 's@#\(pulseaudio-button { -gtk-icon-transform: scale(\).*\(); }\)@\10.5\2@' $WASTA_GTK_FILE

@@ -20,7 +20,7 @@
 /plugins/plugin-23/show-button-title false
 /plugins/plugin-2 'showdesktop'
 /plugins/plugin-3 'dockbarx'
-/plugins/plugin-3/alpha 100
+/plugins/plugin-3/alpha 95
 /plugins/plugin-3/block-autohide false
 /plugins/plugin-3/color '#2b2e37'
 /plugins/plugin-3/expand false
@@ -30,27 +30,22 @@
 /plugins/plugin-4 'separator'
 /plugins/plugin-4/expand true
 /plugins/plugin-4/style uint32 0
-/plugins/plugin-5 'systray'
-/plugins/plugin-5/show-frame false
-/plugins/plugin-5/size-max uint32 22
-/plugins/plugin-6 'statusnotifier'
-/plugins/plugin-6/icon-size uint32 22
-/plugins/plugin-6/menu-is-primary true
-/plugins/plugin-6/mode-whitelist false
-/plugins/plugin-6/single-row false
+/plugins/plugin-5 'notification-plugin'
+/plugins/plugin-6 'systray'
+/plugins/plugin-6/show-frame false
+/plugins/plugin-6/size-max uint32 22
 /plugins/plugin-6/square-icons true
-/plugins/plugin-6/symbolic-icons true
-/plugins/plugin-7 'clock'
-/plugins/plugin-7/digital-format '<b>%l:%M</b>'
-/plugins/plugin-7/mode uint32 2
-/plugins/plugin-7/show-frame false
-/plugins/plugin-7/size-max uint32 22
-/plugins/plugin-7/style uint32 0
-/plugins/plugin-7/tooltip-format '%A %B %d %Y'
-/plugins/plugin-8 'pulseaudio'
-/plugins/plugin-8/enable-keyboard-shortcuts true
-/plugins/plugin-8/enable-mpris true
-/plugins/plugin-8/enable-wnck true
-/plugins/plugin-8/mixer-command 'pavucontrol'
-/plugins/plugin-8/show-notifications false
-/plugins/plugin-9 'power-manager-plugin'
+/plugins/plugin-7 'pulseaudio'
+/plugins/plugin-7/enable-keyboard-shortcuts true
+/plugins/plugin-7/enable-mpris true
+/plugins/plugin-7/enable-wnck true
+/plugins/plugin-7/mixer-command 'pavucontrol'
+/plugins/plugin-7/show-notifications false
+/plugins/plugin-8 'power-manager-plugin'
+/plugins/plugin-9 'clock'
+/plugins/plugin-9/digital-format '<b>%l:%M</b>'
+/plugins/plugin-9/mode uint32 2
+/plugins/plugin-9/show-frame false
+/plugins/plugin-9/size-max uint32 22
+/plugins/plugin-9/style uint32 0
+/plugins/plugin-9/tooltip-format '%A %B %d %Y'
