@@ -18,7 +18,7 @@
     <property name="show_frame_shadow" type="bool" value="true"/>
     <property name="show_popup_shadow" type="bool" value="true"/>
     <property name="sync_to_vblank" type="bool" value="true"/>
-    <property name="theme" type="string" value="Arc-Darker"/>
+    <property name="theme" type="string" value="Arc-Dark-Wasta"/>
     <property name="title_font" type="string" value="Ubuntu Bold 11"/>
     <property name="use_compositing" type="bool" value="true"/>
     <property name="workspace_count" type="int" value="2"/>

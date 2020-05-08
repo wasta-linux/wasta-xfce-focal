@@ -8,7 +8,7 @@
 #   only intended to be run at package installation.
 #
 # 2018-12-20 rik: initial script
-# 2019-01-30 rik: adding gschema compile (for light locker)
+# 2019-01-30 rik: adding gschema compile
 #
 # ==============================================================================
 
@@ -41,21 +41,6 @@ if ! [ -e "/etc/xdg/autostart/nemo-autostart.desktop" ];
 then
     ln -s /usr/share/applications/nemo-autostart.desktop \
         /etc/xdg/autostart/
-fi
-
-# ------------------------------------------------------------------------------
-# Arc-Theme fixes so usable for windowck plugin
-# ------------------------------------------------------------------------------
-if [ -e "/usr/share/themes/Arc-Darker" ];
-then
-    if ! [ -e "/usr/share/themes/Arc-Darker/unity/close_focused_normal.png" ];
-    then
-        echo
-        echo "*** Making Arc-Darker theme compatible with windowck plugin"
-        echo
-        ln -s /usr/share/themes/Arc-Darker/unity/close_focused_normal.svg \
-            /usr/share/themes/Arc-Darker/unity/close_focused_normal.png
-    fi
 fi
 
 # ------------------------------------------------------------------------------

@@ -1,9 +1,17 @@
+wasta-xfce-focal (0.1.1ubuntu1) UNRELEASED; urgency=medium
+
+  * 
+
+ -- Rik Shaw <rikshaw76@gmail.com>  Fri, 08 May 2020 15:05:08 -0500
+
 wasta-xfce-focal (0.1.1) focal; urgency=medium
 
   * wasta-xfce-layout: remove power label for widescreen layout
+    - save and restore systray hidden items
   * layouts: update to use notifcation-plugin and systray
+  * Arc-Dark-Wasta: adding for panel icon sizing compatibility
 
- -- Rik Shaw <rikshaw76@gmail.com>  Tue, 05 May 2020 14:35:27 -0500
+ -- Rik Shaw <rikshaw76@gmail.com>  Fri, 08 May 2020 14:53:41 -0500
 
 wasta-xfce-focal (0.1.0) focal; urgency=medium
 

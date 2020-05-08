@@ -1,5 +1,6 @@
 install-files/actions              usr/share/nemo
 install-files/applications         usr/share
+install-files/Arc-Dark-Wasta       usr/share/themes
 install-files/autostart            etc/xdg
 install-files/bin                  usr
 install-files/helpers              usr/share/xfce4

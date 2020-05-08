@@ -17,6 +17,7 @@
 #       Wasta-Unite for Unity
 #   2020-04-28 rik: updating for focal: dockbarx now gtk3 using dconf
 #   2020-05-05 rik: remove power label for widescreen layout
+#   2020-05-08 rik: save and restore systray hidden items
 #
 # ==============================================================================
 
@@ -118,6 +119,38 @@ gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-re
 
 DBX_LAUNCHERS=$(gsettings get org.dockbarx.dockbarx launchers)
 WASTA_GTK_FILE="$DIR/resources/gtk-xfce-wasta.css"
+XFCE_PANEL=/$HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+    SYSTRAY_PLUGIN_OLD=$(xfconf-query -c xfce4-panel -p /plugins -lv \
+    | grep systray | sed -e 's@\/plugins\/plugin-\([0-9]*\).*@\1@')
+
+echo
+echo "*** old systray plugin: $SYSTRAY_PLUGIN_OLD"
+echo
+
+# plugin number for systray always fixed because can't get ahold of
+# names-hidden array otherwise
+# for other elements could using xmlstarlet since can't be sure of systray plugin #
+#   but, doesn't seem to work for an xml array :-(
+#SYSTRAY_HIDDEN=$(xmlstarlet sel -T -t -m \
+#    '//channel[@name="xfce4-panel"]/property[@name="plugins"]/property[@name="systray"]/property[@name="names-hidden"]/@value' \
+#    -v . -n $XFCE_PANEL)
+SYSTRAY_HIDDEN_ARRAY=$(xfconf-query -c xfce4-panel -p /plugins/plugin-$SYSTRAY_PLUGIN_OLD/names-hidden \
+    | sed 's@Value is an array with .* items:@@' | sed '/^\s*$/d' | sed 's@ @\\ @' || true;)
+
+OLDIFS=$IFS
+IFS=$'\n'
+
+SYSTRAY_HIDDEN_STRING=""
+for item in $SYSTRAY_HIDDEN_ARRAY
+do
+    echo "item: $item"
+    SYSTRAY_HIDDEN_STRING="-t string $SYSTRAY_HIDDEN_STRING -s $item"
+done
+IFS=$OLDIFS
+
+echo
+echo "*** systray hidden string: $SYSTRAY_HIDDEN_STRING"
+echo
 
 if [ "$DBX_LAUNCHERS" == "[]" ] || [ "$DBX_LAUNCHERS" == "" ];
 then
@@ -208,6 +241,31 @@ then
     MSG+="Layout $CHOICE <b>NOT APPLIED</b>\n\n"
 else
     MSG+="Layout $CHOICE <b>APPLIED</b>\n\n"
+fi
+
+# Restore SYSTRAY_HIDDEN_STRING items
+if [ "$SYSTRAY_HIDDEN_STRING" ];
+then
+    echo
+    echo "*** restoring systray hidden items"
+    echo
+
+    # get new systray plugin number
+    SYSTRAY_PLUGIN_NEW=$(xfconf-query -c xfce4-panel -p /plugins -lv \
+    | grep systray | sed -e 's@\/plugins\/plugin-\([0-9]*\).*@\1@')
+
+    echo
+    echo "*** new systray plugin: $SYSTRAY_PLUGIN_NEW"
+    echo
+
+    # create new array
+    # I can't get a space in part of the string to work, so am wrapping the command
+    COMMAND="xfconf-query -c xfce4-panel -p /plugins/plugin-$SYSTRAY_PLUGIN_NEW/names-hidden -n $SYSTRAY_HIDDEN_STRING"
+
+    sleep 1
+    echo "trying this command: $COMMAND"
+    bash -c "$COMMAND"
+    sleep 1
 fi
 
 # put in non-compositing prompt
