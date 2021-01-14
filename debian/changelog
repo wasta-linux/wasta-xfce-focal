@@ -1,6 +1,6 @@
-wasta-xfce-focal (0.1.1ubuntu1) UNRELEASED; urgency=medium
+wasta-xfce-focal (1.0.0) focal; urgency=medium
 
-  * 
+  * Add Wasta-Redmond10-Vert Dockbarx theme, apply to widescreen
 
  -- Rik Shaw <rikshaw76@gmail.com>  Fri, 08 May 2020 15:05:08 -0500
 

@@ -102,7 +102,7 @@ gsettings set org.dockbarx.dockbarx popup-style-file "wasta.tar.gz"
 xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/show-panel-label -s 1
 
 # Wasta-Unite Resets
-gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color1 '#2F343F'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color1 '#2B2E39'
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color2 '#FFFFFF'
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color3 '#FFFFFF'
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color5 '#FFFFFF'
@@ -110,12 +110,20 @@ gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-un
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-unite/ color5 '#5294E2'
 
 # Wasta-Redmond10 Resets
-gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color1 '#2F343F'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color1 '#2B2E39'
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color2 '#FFFFFF'
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color3 '#FFFFFF'
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color5 '#FFFFFF'
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color5 '#5294E2'
 gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10/ color5 '#5294E2'
+
+# Wasta-Redmond10-Vert Resets
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10-vert/ color1 '#2B2E39'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10-vert/ color2 '#FFFFFF'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10-vert/ color3 '#FFFFFF'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10-vert/ color5 '#FFFFFF'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10-vert/ color5 '#5294E2'
+gsettings set org.dockbarx.dockbarx.theme:/org/dockbarx/dockbarx/themes/wasta-redmond10-vert/ color5 '#5294E2'
 
 DBX_LAUNCHERS=$(gsettings get org.dockbarx.dockbarx launchers)
 WASTA_GTK_FILE="$DIR/resources/gtk-xfce-wasta.css"
@@ -203,7 +211,7 @@ case "$CHOICE" in
 ;;
 "widescreen")
     # set dockbarx theme
-    gsettings set org.dockbarx.dockbarx theme "Wasta-Unite"
+    gsettings set org.dockbarx.dockbarx theme "Wasta-Redmond10-Vert"
 
     xfconf-query -c xfwm4 -p /general/button_layout -s "O|HMC"
     xfconf-query -c xfwm4 -p /general/borderless_maximize -s false

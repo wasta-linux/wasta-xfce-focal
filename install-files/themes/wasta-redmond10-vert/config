@@ -1,7 +1,7 @@
-<theme name = "Wasta-Redmond10">
+<theme name = "Wasta-Redmond10-Vert">
 <popup_style file_name="wasta.tar.gz" />
 <colors>
-	<color1 name="window list background"   default="#2B2E39" opacity="100" />
+	<color1 name="window list background"   default="#2B2E39" opacity="70" />
 	<color2 name="normal text"              default="#FFFFFF" opacity="100" />
 	<color3 name="active window text"       default="#FFFFFF" opacity="100" />
 	<color5 name="active + indicator color" default="#FFFFFF" opacity="100" />
@@ -19,9 +19,9 @@
 	<pixmap_from_file name="attention" file="attention.png" />
 </pixmaps>
 <sets>
-	<set name="as"  left="90"    right="-90"  up="180"  down="0"    />
+	<set name="as"  left="0"    right="0"  up="0"  down="0"    />
 </sets>
-<button_pixmap gap = "0" aspect_ratio="3/2" aspect_ratio_v="3/4" windows_cnt="3">
+<button_pixmap gap = "0" aspect_ratio="3/2" aspect_ratio_v="5/6" windows_cnt="3">
 	<get_icon size="-3" />
 	<correct_size />
 	<if type="active">
